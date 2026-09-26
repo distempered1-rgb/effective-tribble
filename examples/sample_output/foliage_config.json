@@ -1,0 +1,53 @@
+{
+  "_help": "Map each category to one or more Static Mesh asset paths (right-click a mesh in the Content Browser > Copy Reference). Several meshes = random mix. When you swap in real plants set scale_multiplier to 1 and mesh_pivot_offset_cm to 0 (plant meshes normally have their pivot at the base). Re-run unreal/import_foliage.py after editing. You can also just open the FT_* Foliage Type assets in Unreal and change their Mesh.",
+  "categories": {
+    "Trees": {
+      "meshes": [
+        "/Engine/BasicShapes/Cone.Cone"
+      ],
+      "scale_multiplier": 4.0,
+      "mesh_pivot_offset_cm": 50,
+      "random_yaw": true,
+      "align_to_normal": false,
+      "cull_distance_cm": 0,
+      "cast_shadow": true,
+      "enabled": true
+    },
+    "Bushes": {
+      "meshes": [
+        "/Engine/BasicShapes/Sphere.Sphere"
+      ],
+      "scale_multiplier": 1.2,
+      "mesh_pivot_offset_cm": 25,
+      "random_yaw": true,
+      "align_to_normal": false,
+      "cull_distance_cm": 20000,
+      "cast_shadow": true,
+      "enabled": true
+    },
+    "Grass": {
+      "meshes": [
+        "/Engine/BasicShapes/Cylinder.Cylinder"
+      ],
+      "scale_multiplier": 0.25,
+      "mesh_pivot_offset_cm": 50,
+      "random_yaw": true,
+      "align_to_normal": true,
+      "cull_distance_cm": 6000,
+      "cast_shadow": false,
+      "enabled": true
+    },
+    "Rocks": {
+      "meshes": [
+        "/Engine/BasicShapes/Cube.Cube"
+      ],
+      "scale_multiplier": 0.8,
+      "mesh_pivot_offset_cm": 50,
+      "random_yaw": true,
+      "align_to_normal": true,
+      "cull_distance_cm": 15000,
+      "cast_shadow": true,
+      "enabled": true
+    }
+  }
+}

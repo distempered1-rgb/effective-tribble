@@ -1,0 +1,32 @@
+{
+  "source_image": "sample_aerial.jpg",
+  "mode": "topdown",
+  "resolution": 505,
+  "world_size_m": 504.0,
+  "height_range_m": 150.0,
+  "unreal": {
+    "heightmap_file": "heightmap.png",
+    "landscape_scale": {
+      "x": 100.0,
+      "y": 100.0,
+      "z": 29.2969
+    },
+    "section_size": "63x63 quads",
+    "sections_per_component": "1x1",
+    "paint_layers": {
+      "Grass": "layers/Grass.png",
+      "Forest": "layers/Forest.png",
+      "Dirt": "layers/Dirt.png",
+      "Rock": "layers/Rock.png",
+      "Sand": "layers/Sand.png",
+      "Snow": "layers/Snow.png"
+    }
+  },
+  "foliage_counts": {
+    "Trees": 2491,
+    "Bushes": 3167,
+    "Grass": 14250,
+    "Rocks": 478
+  },
+  "seed": 1234
+}

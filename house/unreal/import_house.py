@@ -123,27 +123,30 @@ def import_meshes(mesh_dir, names):
         task.set_editor_property("replace_existing", True)
         task.set_editor_property("save", True)
         task.set_editor_property("options", opts)
+        try:
+            task.set_editor_property("async_", False)       # UE 5.x Interchange importer
+        except Exception:
+            pass
         tasks.append(task)
     log("importing %d meshes into %s ..." % (len(tasks), DEST))
     unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks(tasks)
 
+    # Find what was imported. Newer engines (Interchange importer) may name or
+    # nest assets differently, so search the folder rather than assume a path.
+    found = {}
+    for path in unreal.EditorAssetLibrary.list_assets("/Game/MyHouse", recursive=True):
+        asset = unreal.EditorAssetLibrary.load_asset(path.split(".")[0])
+        if isinstance(asset, unreal.StaticMesh):
+            found[asset.get_name()] = asset
+    log("static meshes found after import: %d" % len(found))
     meshes = {}
-    for name, task in zip(names, tasks):
-        mesh = None
-        try:
-            for obj_path in list(task.get_editor_property("imported_object_paths") or []):
-                asset = unreal.EditorAssetLibrary.load_asset(str(obj_path))
-                if isinstance(asset, unreal.StaticMesh):
-                    mesh = asset
-                    break
-        except Exception:
-            pass
-        if mesh is None:
-            mesh = unreal.EditorAssetLibrary.load_asset("%s/%s.%s" % (DEST, name, name))
-        if mesh is None:
+    for name in names:
+        match = found.get(name) or next(
+            (m for n, m in found.items() if n.endswith(name) or n.startswith(name)), None)
+        if match is None:
             unreal.log_error("[MyHouse] import failed for %s - see the messages above" % name)
             continue
-        meshes[name] = mesh
+        meshes[name] = match
     if not meshes:
         fail("nothing was imported - scroll up in the Output Log for the FBX importer's error")
     return meshes
@@ -202,6 +205,10 @@ def place(objects, meshes, swaps):
 
 
 def main():
+    try:
+        log("Unreal Engine " + unreal.SystemLibrary.get_engine_version())
+    except Exception:
+        pass
     base = None if FORCE_DOWNLOAD else local_folder()
     if base:
         log("using local files in " + base)

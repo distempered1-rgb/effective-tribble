@@ -221,3 +221,4 @@ __marimo__/
 /output/
 *.obj
 *.blend1
+house/output/*.glb

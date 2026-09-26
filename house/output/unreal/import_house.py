@@ -7,7 +7,8 @@ box at the bottom-left from "Cmd" to "Python", paste this one line and press Ent
 import urllib.request as r; exec(r.urlopen("https://raw.githubusercontent.com/distempered1-rgb/effective-tribble/refs/heads/claude/3d-landscape-unreal-engine-yw7zzp/house/unreal/import_house.py").read().decode())
 
 The script downloads the model straight from GitHub into <YourProject>/Saved/MyHouse,
-imports it and places it in the open level. (You can also run this file with
+imports it, turns on Nanite for every mesh (the plants are full-geometry, every leaf
+modelled) and places it in the open level with walkable collision. (You can also run this file with
 Tools > Execute Python Script; if it sits next to placements.json it uses those
 local files instead of downloading.)
 
@@ -113,7 +114,11 @@ def import_meshes(mesh_dir, names):
         opts.set_editor_property("mesh_type_to_import", unreal.FBXImportType.FBXIT_STATIC_MESH)
         sm = opts.get_editor_property("static_mesh_import_data")
         sm.set_editor_property("combine_meshes", True)
-        sm.set_editor_property("auto_generate_collision", True)
+        sm.set_editor_property("auto_generate_collision", False)
+        try:
+            sm.set_editor_property("build_nanite", True)
+        except Exception:
+            pass
 
         task = unreal.AssetImportTask()
         task.set_editor_property("filename", path)
@@ -150,6 +155,26 @@ def import_meshes(mesh_dir, names):
     if not meshes:
         fail("nothing was imported - scroll up in the Output Log for the FBX importer's error")
     return meshes
+
+
+def enable_nanite(mesh, foliage):
+    """Turn Nanite on (and 'Preserve Area' for thin foliage so leaves don't thin out)."""
+    try:
+        ns = mesh.get_editor_property("nanite_settings")
+        changed = not ns.get_editor_property("enabled")
+        ns.set_editor_property("enabled", True)
+        if foliage:
+            try:
+                changed |= not ns.get_editor_property("preserve_area")
+                ns.set_editor_property("preserve_area", True)
+            except Exception:
+                pass
+        if changed:
+            mesh.set_editor_property("nanite_settings", ns)   # triggers the Nanite build
+        return True
+    except Exception as e:
+        unreal.log_warning("[MyHouse] could not enable Nanite on %s: %s" % (mesh.get_name(), e))
+        return False
 
 
 def use_complex_collision(mesh):
@@ -225,9 +250,15 @@ def main():
 
     names = sorted({o["mesh"] for o in objects if "mesh" in o})
     meshes = import_meshes(os.path.join(base, "meshes"), names)
-    for o in objects:
-        if o.get("collision") == "complex" and o.get("mesh") in meshes:
-            use_complex_collision(meshes[o["mesh"]])
+    plant_meshes = {o["mesh"] for o in objects if o["category"] == "Plant"}
+    nanite = 0
+    with unreal.ScopedSlowTask(len(meshes), "Building Nanite + collision...") as task:
+        task.make_dialog(True)
+        for name, mesh in meshes.items():
+            task.enter_progress_frame(1, "Nanite: " + name)
+            nanite += enable_nanite(mesh, name in plant_meshes)
+            use_complex_collision(mesh)
+    log("Nanite enabled on %d/%d meshes" % (nanite, len(meshes)))
 
     count = place(objects, meshes, swaps)
     log("placed %d objects (outliner folder 'MyHouse'). Press Play to walk around." % count)

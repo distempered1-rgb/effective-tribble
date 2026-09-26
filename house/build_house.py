@@ -31,6 +31,9 @@ import bpy  # noqa: I001  (bpy must be imported before bmesh when run as a modul
 import bmesh
 from mathutils import Matrix, Vector, noise
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import plants  # noqa: E402  (geometric, Nanite-friendly plant generators)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 TEX = os.path.join(HERE, "textures")
 OUT = os.path.join(HERE, "output")
@@ -121,14 +124,18 @@ def build_materials():
     material("M_StoneBlock", "T_StoneBlock.png", 0.9, tile=0.6)
     material("M_BlackMetal", colour=srgb(25, 25, 25), rough=0.4, metallic=0.7)
     material("M_Glass", colour=srgb(230, 220, 170), rough=0.1)
-    material("M_Bark", colour=srgb(120, 105, 88), rough=0.9)
     material("M_BarkDark", colour=srgb(70, 60, 52), rough=0.95)
-    material("M_LeavesMyrtle", "T_LeavesMyrtle.png", 0.8, tile=1.0)
-    material("M_LeavesAzalea", "T_LeavesAzalea.png", 0.8, tile=0.8)
-    material("M_TreeCanopy", "T_TreeCanopy.png", 0.85, tile=3.0)
+    material("M_BarkMyrtle", "T_Bark_Myrtle.png", 0.6)
+    material("M_BarkOak", "T_Bark_Oak.png", 0.95)
+    material("M_BarkPine", "T_Bark_Pine.png", 0.95)
+    # Leaves/petals: each leaf samples a colour column of a small palette texture.
+    material("M_LeavesMyrtle", "T_Palette_Myrtle.png", 0.55)
+    material("M_LeavesAzalea", "T_Palette_Azalea.png", 0.5)
+    material("M_LeavesOak", "T_Palette_Oak.png", 0.6)
+    material("M_LeavesPine", "T_Palette_Pine.png", 0.6)
+    material("M_LeavesVinca", "T_Palette_Vinca.png", 0.45)
+    material("M_Flowers", "T_Palette_Flower.png", 0.5)
     material("M_Terracotta", colour=srgb(150, 100, 80), rough=0.8)
-    material("M_FlowerPink", colour=srgb(222, 30, 110), rough=0.6)
-    material("M_LeafGreen", colour=srgb(34, 78, 26), rough=0.7)
 
 
 # --------------------------------------------------------------------------- #
@@ -417,128 +424,6 @@ def _block(mb, c, ang, lx, ly, lz, z):
 # swapped for any other plant in Blender (Object Data dropdown) or Unreal.
 # --------------------------------------------------------------------------- #
 
-def blob(mb, centre, radius, squash, mat, seed, rough=0.35, subdiv=3):
-    bm = bmesh.new()
-    bmesh.ops.create_icosphere(bm, subdivisions=subdiv, radius=1.0)
-    off = Vector((seed * 13.1, seed * 7.7, seed * 3.3))
-    verts = []
-    for v in bm.verts:
-        d = v.co.copy()
-        k = (1 + rough * noise.noise(d * 1.7 + off) + 0.5 * rough * noise.noise(d * 4.1 + off)
-             + 0.25 * rough * noise.noise(d * 9.0 + off))
-        verts.append(Vector((d.x * radius * k + centre[0], d.y * radius * k + centre[1],
-                             d.z * radius * squash * k + centre[2])))
-    for f in bm.faces:
-        mb.face([verts[v.index] for v in f.verts], mat)
-    bm.free()
-
-
-def trunk(mb, base, top, r0, r1, mat, sides=7):
-    base, top = Vector(base), Vector(top)
-    axis = (top - base).normalized()
-    ref = Vector((1, 0, 0)) if abs(axis.x) < 0.9 else Vector((0, 1, 0))
-    u = axis.cross(ref).normalized()
-    v = axis.cross(u)
-    ring0, ring1 = [], []
-    for i in range(sides):
-        a = 2 * math.pi * i / sides
-        ring0.append(base + (u * math.cos(a) + v * math.sin(a)) * r0)
-        ring1.append(top + (u * math.cos(a) + v * math.sin(a)) * r1)
-    for i in range(sides):
-        j = (i + 1) % sides
-        mb.face([ring0[i], ring0[j], ring1[j], ring1[i]], mat)
-
-
-def plant_crape_myrtle():
-    mb = MeshBuilder()
-    rng = random.Random(1)
-    tops = []
-    for i in range(7):                                    # multi-trunk, vase shape
-        a = 2 * math.pi * i / 7 + rng.uniform(-0.2, 0.2)
-        lean = rng.uniform(0.35, 0.7)
-        top = (math.cos(a) * lean, math.sin(a) * lean, rng.uniform(1.7, 2.2))
-        trunk(mb, (math.cos(a) * 0.08, math.sin(a) * 0.08, -0.05), top, 0.05, 0.03, "M_Bark")
-        tops.append(top)
-    for i, t in enumerate(tops):
-        blob(mb, (t[0] * 1.3, t[1] * 1.3, t[2] + 0.55), rng.uniform(0.75, 0.95), 0.9,
-             "M_LeavesMyrtle", i + 1)
-    blob(mb, (0, 0, 3.1), 1.0, 0.8, "M_LeavesMyrtle", 9)
-    blob(mb, (0.3, -0.2, 2.2), 0.9, 0.8, "M_LeavesMyrtle", 10)
-    return mb
-
-
-def plant_azalea(seed):
-    mb = MeshBuilder()
-    rng = random.Random(seed)
-    for i in range(5):
-        a = 2 * math.pi * i / 5
-        r = 0.28
-        blob(mb, (math.cos(a) * r, math.sin(a) * r, 0.42 + rng.uniform(-0.05, 0.08)),
-             rng.uniform(0.38, 0.48), 0.8, "M_LeavesAzalea", seed * 10 + i, rough=0.3)
-    blob(mb, (0, 0, 0.6), 0.45, 0.85, "M_LeavesAzalea", seed * 10 + 7, rough=0.3)
-    return mb
-
-
-def plant_urn_flowers():
-    """Terracotta urn on a pedestal with a bougainvillea / vinca planting."""
-    mb = MeshBuilder()
-    profile = [(0.0, 0.0), (0.17, 0.0), (0.17, 0.05), (0.08, 0.1), (0.07, 0.3), (0.12, 0.36),
-               (0.2, 0.5), (0.24, 0.66), (0.22, 0.78), (0.26, 0.82), (0.26, 0.86), (0.0, 0.86)]
-    sides = 16
-    rings = [[(r * math.cos(2 * math.pi * k / sides), r * math.sin(2 * math.pi * k / sides), z)
-              for k in range(sides)] for r, z in profile]
-    for a, b in zip(rings, rings[1:]):
-        for k in range(sides):
-            j = (k + 1) % sides
-            if a[k] == a[j] and b[k] == b[j]:
-                continue
-            pts = [a[k], a[j], b[j], b[k]]
-            uniq = [p for i, p in enumerate(pts) if p not in pts[:i]]
-            if len(uniq) >= 3:
-                mb.face(uniq, "M_Terracotta")
-    rng = random.Random(4)
-    blob(mb, (0, 0, 1.05), 0.34, 0.8, "M_LeafGreen", 21, rough=0.4)
-    blob(mb, (0.15, 0.1, 1.2), 0.22, 1.0, "M_LeafGreen", 22, rough=0.4)
-    for i in range(40):                                  # pink flower clusters
-        a, e = rng.uniform(0, 2 * math.pi), rng.uniform(-0.2, 1.2)
-        r = 0.36
-        c = (math.cos(a) * math.cos(e) * r, math.sin(a) * math.cos(e) * r, 1.05 + math.sin(e) * r * 0.8)
-        blob(mb, c, rng.uniform(0.035, 0.06), 1.0, "M_FlowerPink", 40 + i, rough=0.2, subdiv=1)
-    return mb
-
-
-def plant_oak(seed, height):
-    """Spreading live-oak / water-oak shape: short trunk, limbs, wide clumpy crown."""
-    mb = MeshBuilder()
-    rng = random.Random(seed)
-    top = Vector((rng.uniform(-0.4, 0.4), rng.uniform(-0.4, 0.4), height * 0.45))
-    trunk(mb, (0, 0, -0.1), top, 0.38, 0.26, "M_BarkDark", 9)
-    for i in range(22):
-        a = rng.uniform(0, 2 * math.pi)
-        r = height * 0.3 * math.sqrt(rng.random())
-        z = height * (0.55 + 0.35 * (1 - r / (height * 0.3)) * rng.uniform(0.6, 1.0))
-        c = (top.x + math.cos(a) * r, top.y + math.sin(a) * r, z)
-        if i < 6:
-            trunk(mb, top, c, 0.18, 0.08, "M_BarkDark", 6)
-        blob(mb, c, height * rng.uniform(0.08, 0.12), 0.7, "M_TreeCanopy", seed * 30 + i, rough=0.45)
-    return mb
-
-
-def plant_pine(seed, height):
-    """Loblolly pine: tall bare trunk, small irregular crown at the top."""
-    mb = MeshBuilder()
-    rng = random.Random(seed)
-    top = Vector((rng.uniform(-0.3, 0.3), rng.uniform(-0.3, 0.3), height * 0.95))
-    trunk(mb, (0, 0, -0.1), top, 0.26, 0.08, "M_BarkDark", 8)
-    for i in range(14):
-        z = height * rng.uniform(0.62, 0.97)
-        spread = (1.0 - (z / height - 0.6)) * 2.2
-        a = rng.uniform(0, 2 * math.pi)
-        c = (math.cos(a) * spread * rng.random(), math.sin(a) * spread * rng.random(), z)
-        blob(mb, c, height * rng.uniform(0.045, 0.07), 0.6, "M_TreeCanopy", seed * 50 + i, rough=0.5)
-    return mb
-
-
 def tree_line():
     """Woods behind and beside the lot, as in the photos."""
     rng = random.Random(77)
@@ -556,24 +441,22 @@ _OAKS, _PINES = tree_line()
 
 # Where the plants go (x, y, yaw degrees, scale) - read off the photos.
 PLANTS = {
-    "CrapeMyrtle": {"make": plant_crape_myrtle, "at": [(-0.75, -3.25, 0, 1.0)]},
-    "Azalea": {"make": lambda: plant_azalea(3), "at": [
+    "CrapeMyrtle": {"make": plants.crape_myrtle, "at": [(-0.75, -3.25, 0, 1.0)]},
+    "Azalea": {"make": lambda: plants.azalea(3), "at": [
         (3.55, -3.05, 0, 1.05), (3.05, -4.05, 70, 0.95), (2.1, -3.0, 140, 0.6),
         (3.85, -4.25, 200, 0.8)]},
-    "UrnFlowers": {"make": plant_urn_flowers, "at": [(4.55, -2.15, 0, 1.0), (6.15, -1.95, 90, 1.1)]},
-    "LiveOak": {"make": lambda: plant_oak(5, 14.0), "at": _OAKS},
-    "Pine": {"make": lambda: plant_pine(6, 21.0), "at": _PINES},
+    "UrnFlowers": {"make": plants.urn_flowers, "at": [(4.55, -2.15, 0, 1.0), (6.15, -1.95, 90, 1.1)]},
+    "LiveOak": {"make": lambda: plants.hardwood(5, 15.0), "at": _OAKS},
+    "Pine": {"make": lambda: plants.pine(6, 21.0), "at": _PINES},
 }
 
 
 def build_plants(col):
     placed = []
     for kind, spec in PLANTS.items():
-        mb = spec["make"]()
-        proto = mb.finish("SM_Plant_" + kind, col, mesh_name="SM_Plant_" + kind, merge=True,
-                          smooth=True)
-        me = proto.data
-        bpy.data.objects.remove(proto)
+        pm, stats = spec["make"]()
+        me = pm.to_mesh("SM_Plant_" + kind, MATS)
+        print(f"  {kind}: {stats['leaves']:,} leaves, {pm.tris:,} triangles")
         for i, (x, y, yaw, s) in enumerate(spec["at"], 1):
             obj = bpy.data.objects.new(f"Plant_{kind}_{i:02d}", me)   # shares the mesh
             obj.location = (x, y, 0)
@@ -702,7 +585,7 @@ def export_unreal(scene, groups):
                 "location": to_unreal(obj.location),
                 "yaw": round(-math.degrees(obj.rotation_euler.z), 2),
                 "scale": round(obj.scale.x, 3),
-                "collision": "simple" if category == "Plant" else "complex",
+                "collision": "complex",
             })
     bpy.data.collections.remove(tmp_col)
 
@@ -725,6 +608,8 @@ def export_unreal(scene, groups):
 
     everything = [o for objs in groups.values() for o in objs]
     export_fbx(os.path.join(OUT, "MyHouse_Full.fbx"), everything)
+    if "--glb" not in sys.argv:        # large with Nanite-density plants; opt in
+        return
     bpy.ops.object.select_all(action="DESELECT")
     for o in everything:
         o.select_set(True)
@@ -732,7 +617,44 @@ def export_unreal(scene, groups):
                               use_selection=True, export_format="GLB")
 
 
+def preview_plants(only=None):
+    """Render each plant on its own (house/output/renders/plants/<name>.png)."""
+    scene = reset_scene()
+    build_materials()
+    setup_world(scene)
+    col = collection("Plants")
+    folder = os.path.join(OUT, "renders", "plants")
+    os.makedirs(folder, exist_ok=True)
+    ground = MeshBuilder()
+    ground.face([(-40, -40, 0), (40, -40, 0), (40, 40, 0), (-40, 40, 0)], "M_Lawn")
+    ground.finish("Ground", col)
+    scene.render.engine = "CYCLES"
+    scene.cycles.samples = 32
+    scene.cycles.use_denoising = True
+    scene.render.resolution_x, scene.render.resolution_y = 900, 900
+    for kind, spec in PLANTS.items():
+        if only and kind not in only:
+            continue
+        pm, stats = spec["make"]()
+        obj = bpy.data.objects.new(kind, pm.to_mesh("SM_Plant_" + kind, MATS))
+        col.objects.link(obj)
+        zs = [v[2] for v in pm.verts]
+        xs = [abs(v[0]) for v in pm.verts] + [abs(v[1]) for v in pm.verts]
+        h, w = max(zs), max(xs)
+        size = max(h, 2 * w)
+        scene.camera = add_camera(scene, "Cam", (size * 0.9, -size * 1.6, h * 0.55 + size * 0.15),
+                                  (0, 0, h * 0.5), 35)
+        scene.render.filepath = os.path.join(folder, kind + ".png")
+        bpy.ops.render.render(write_still=True)
+        print(f"rendered {kind}: {stats['leaves']:,} leaves, {pm.tris:,} tris")
+        bpy.data.objects.remove(obj)
+
+
 def main():
+    if any(a.startswith("--plants") for a in sys.argv):
+        only = [a.split("=", 1)[1].split(",") for a in sys.argv if a.startswith("--plants=")]
+        preview_plants(only[0] if only else None)
+        return
     os.makedirs(OUT, exist_ok=True)
     scene = reset_scene()
     build_materials()
@@ -750,10 +672,10 @@ def main():
     # Save the .blend with textures referenced relatively (house/textures).
     bpy.ops.file.make_paths_relative() if bpy.data.filepath else None
     blend = os.path.join(OUT, "MyHouse.blend")
-    bpy.ops.wm.save_as_mainfile(filepath=blend, relative_remap=True)
+    bpy.ops.wm.save_as_mainfile(filepath=blend, relative_remap=True, compress=True)
     if RENDER:
         render_previews(scene)
-        bpy.ops.wm.save_as_mainfile(filepath=blend, relative_remap=True)
+        bpy.ops.wm.save_as_mainfile(filepath=blend, relative_remap=True, compress=True)
     print("done ->", OUT)
 
 

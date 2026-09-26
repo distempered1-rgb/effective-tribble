@@ -30,21 +30,42 @@ swap it for any other plant.
 The measurements are estimates taken from the photos, using the 16 ft (4.9 m)
 2-car garage door as the scale reference. The back and sides weren't
 photographed, so they are an educated guess at a typical plan for this house
-style. The plants are **placeholders** (blobby but correctly sized and
-positioned), meant to be swapped for real plant meshes.
+style.
+
+### Plants: full geometry, built for Nanite
+
+![plants](output/renders/plants.png)
+
+Every leaf, pine needle and petal is modelled as real geometry. Nothing uses
+see-through leaf cards. The leaves are opaque and double-sided, which is the
+setup Unreal's **Nanite** renders best: Nanite streams millions of triangles
+cheaply, but it's slow with see-through ("masked") leaf materials.
+
+| Plant | Leaves | Triangles |
+|---|---|---|
+| Crape myrtle: 7 trunks with mottled bark | 27k | 166k |
+| Azalea: dense mound, leaves in rosettes | 22k | 89k |
+| Urn: 40-sided terracotta urn, vinca leaves, 170 magenta flowers | 1.4k | 10k |
+| Hardwood (water/live oak) | 75k | 370k |
+| Loblolly pine: needle bundles | 14.5k tufts | 341k |
+
+Each leaf picks its colour from a small palette texture, matched to the
+photos, and shades from darker at the stem to lighter at the tip. The
+generators are in `house/plants.py`. Change the numbers there (leaf size and
+spacing, branch counts and angles) and rerun the build to make new variations.
 
 ## Files
 
 ```
 house/
   build_house.py        Blender script that builds everything (edit dimensions at the top)
+  plants.py             the geometric plant generators
   make_textures.py      makes the textures from the photos (already done)
   textures/             brick, shingles, lawn, mulch, leaves, doors, window...
   unreal/import_house.py
   output/
     MyHouse.blend       open in Blender 4.2+
     MyHouse_Full.fbx    whole scene in one FBX
-    MyHouse_Full.glb    whole scene in one glTF (opens in Windows 3D Viewer, etc.)
     unreal/             <- the folder you use for Unreal
       meshes/SM_*.fbx   one mesh per file, textures embedded
       placements.json   where everything goes
@@ -68,6 +89,8 @@ To rebuild after changing anything in the script:
 ```bash
 blender -b -P house/build_house.py            # or: pip install bpy==4.2.0 && python house/build_house.py
 blender -b -P house/build_house.py -- --no-render   # skip the preview renders (fast)
+blender -b -P house/build_house.py -- --plants      # render each plant on its own
+blender -b -P house/build_house.py -- --glb         # also export MyHouse_Full.glb
 ```
 
 ## Walk around it in Unreal Engine 5
@@ -88,8 +111,10 @@ blender -b -P house/build_house.py -- --no-render   # skip the preview renders (
    - imports it into `Content/MyHouse/Meshes`;
    - places everything in the Outliner under **MyHouse/House**, **Yard**,
      **Plants** and **Neighbour**;
-   - gives the house per-polygon collision so you can walk up to the walls
-     and onto the porch;
+   - turns on **Nanite** for every mesh, with "Preserve Area" on the plants
+     so leaves don't thin out at a distance;
+   - gives everything per-polygon collision, so you can walk up to the walls,
+     onto the porch and under the trees;
    - adds a **Player Start** on the driveway.
 
    Progress and any errors appear in the Output Log as lines starting with
@@ -101,9 +126,9 @@ Script…** on `house/output/unreal/import_house.py`. It uses the files next to
 it instead of downloading.
 
 *No-script alternative:* **File → Import Into Level →
-`MyHouse_Full.fbx`** brings in the whole scene as separate actors. You may
-need to set collision to "Use Complex Collision As Simple" on the house meshes
-yourself.
+`MyHouse_Full.fbx`** brings in the whole scene as separate actors. In the
+import options tick **Build Nanite** (under Mesh). You may need to set collision
+to "Use Complex Collision As Simple" on the meshes yourself.
 
 ### Swap plants in Unreal
 

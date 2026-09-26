@@ -1,0 +1,1003 @@
+{
+ "units": "cm, Unreal axes",
+ "objects": [
+  {
+   "name": "House_Walls",
+   "mesh": "SM_House_Walls",
+   "category": "House",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "House_EntryStucco",
+   "mesh": "SM_House_EntryStucco",
+   "category": "House",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "House_Roof",
+   "mesh": "SM_House_Roof",
+   "category": "House",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "House_Details",
+   "mesh": "SM_House_Details",
+   "category": "House",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "House_Lights",
+   "mesh": "SM_House_Lights",
+   "category": "House",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "House_Slab",
+   "mesh": "SM_House_Slab",
+   "category": "House",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Yard_Lawn",
+   "mesh": "SM_Yard_Lawn",
+   "category": "Yard",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Yard_Driveway",
+   "mesh": "SM_Yard_Driveway",
+   "category": "Yard",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Yard_Street",
+   "mesh": "SM_Yard_Street",
+   "category": "Yard",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Yard_FlowerBed",
+   "mesh": "SM_Yard_FlowerBed",
+   "category": "Yard",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Yard_StoneEdging",
+   "mesh": "SM_Yard_StoneEdging",
+   "category": "Yard",
+   "location": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Plant_CrapeMyrtle_01",
+   "mesh": "SM_Plant_CrapeMyrtle",
+   "category": "Plant",
+   "location": [
+    -75.0,
+    325.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Azalea_01",
+   "mesh": "SM_Plant_Azalea",
+   "category": "Plant",
+   "location": [
+    355.0,
+    305.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.05,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Azalea_02",
+   "mesh": "SM_Plant_Azalea",
+   "category": "Plant",
+   "location": [
+    305.0,
+    405.0,
+    0.0
+   ],
+   "yaw": -70.0,
+   "scale": 0.95,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Azalea_03",
+   "mesh": "SM_Plant_Azalea",
+   "category": "Plant",
+   "location": [
+    210.0,
+    300.0,
+    0.0
+   ],
+   "yaw": -140.0,
+   "scale": 0.6,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Azalea_04",
+   "mesh": "SM_Plant_Azalea",
+   "category": "Plant",
+   "location": [
+    385.0,
+    425.0,
+    0.0
+   ],
+   "yaw": -200.0,
+   "scale": 0.8,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_UrnFlowers_01",
+   "mesh": "SM_Plant_UrnFlowers",
+   "category": "Plant",
+   "location": [
+    455.0,
+    215.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_UrnFlowers_02",
+   "mesh": "SM_Plant_UrnFlowers",
+   "category": "Plant",
+   "location": [
+    615.0,
+    195.0,
+    0.0
+   ],
+   "yaw": -90.0,
+   "scale": 1.1,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_01",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    3490.0,
+    -2610.0,
+    0.0
+   ],
+   "yaw": -58.0,
+   "scale": 0.97,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_02",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    5030.0,
+    -4500.0,
+    0.0
+   ],
+   "yaw": -284.0,
+   "scale": 1.1,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_03",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    510.0,
+    -4080.0,
+    0.0
+   ],
+   "yaw": -254.0,
+   "scale": 0.92,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_04",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    -3330.0,
+    -2030.0,
+    0.0
+   ],
+   "yaw": -240.0,
+   "scale": 0.93,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_05",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    -2580.0,
+    -1930.0,
+    0.0
+   ],
+   "yaw": -286.0,
+   "scale": 1.21,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_06",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    1450.0,
+    -3210.0,
+    0.0
+   ],
+   "yaw": -108.0,
+   "scale": 1.15,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_07",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    4000.0,
+    480.0,
+    0.0
+   ],
+   "yaw": -40.0,
+   "scale": 1.22,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_08",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    3340.0,
+    -4430.0,
+    0.0
+   ],
+   "yaw": -321.0,
+   "scale": 1.16,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_09",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    810.0,
+    -1750.0,
+    0.0
+   ],
+   "yaw": -180.0,
+   "scale": 1.22,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_10",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    3010.0,
+    -3310.0,
+    0.0
+   ],
+   "yaw": -246.0,
+   "scale": 0.91,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_11",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    4740.0,
+    380.0,
+    0.0
+   ],
+   "yaw": -243.0,
+   "scale": 0.89,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_12",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    4050.0,
+    -320.0,
+    0.0
+   ],
+   "yaw": -44.0,
+   "scale": 0.91,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_13",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    -1550.0,
+    -2470.0,
+    0.0
+   ],
+   "yaw": -96.0,
+   "scale": 0.86,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_14",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    5010.0,
+    -1110.0,
+    0.0
+   ],
+   "yaw": -250.0,
+   "scale": 1.06,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_15",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    2090.0,
+    -4290.0,
+    0.0
+   ],
+   "yaw": -52.0,
+   "scale": 0.91,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_16",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    -900.0,
+    -3890.0,
+    0.0
+   ],
+   "yaw": -301.0,
+   "scale": 1.1,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_17",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    2520.0,
+    -1920.0,
+    0.0
+   ],
+   "yaw": -317.0,
+   "scale": 1.14,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_18",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    5310.0,
+    -3680.0,
+    0.0
+   ],
+   "yaw": -2.0,
+   "scale": 0.89,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_19",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    -3780.0,
+    -3060.0,
+    0.0
+   ],
+   "yaw": -290.0,
+   "scale": 1.16,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_LiveOak_20",
+   "mesh": "SM_Plant_LiveOak",
+   "category": "Plant",
+   "location": [
+    -1280.0,
+    -3010.0,
+    0.0
+   ],
+   "yaw": -295.0,
+   "scale": 1.02,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_01",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    3630.0,
+    -3120.0,
+    0.0
+   ],
+   "yaw": -93.0,
+   "scale": 0.98,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_02",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    1020.0,
+    -2040.0,
+    0.0
+   ],
+   "yaw": -28.0,
+   "scale": 1.18,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_03",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    3220.0,
+    -2830.0,
+    0.0
+   ],
+   "yaw": -310.0,
+   "scale": 1.06,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_04",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -2310.0,
+    -3020.0,
+    0.0
+   ],
+   "yaw": -196.0,
+   "scale": 0.86,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_05",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    5350.0,
+    710.0,
+    0.0
+   ],
+   "yaw": -183.0,
+   "scale": 1.15,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_06",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -170.0,
+    -2420.0,
+    0.0
+   ],
+   "yaw": -288.0,
+   "scale": 1.13,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_07",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -3940.0,
+    -1590.0,
+    0.0
+   ],
+   "yaw": -48.0,
+   "scale": 0.91,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_08",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    3790.0,
+    -4230.0,
+    0.0
+   ],
+   "yaw": -122.0,
+   "scale": 0.89,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_09",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -3010.0,
+    720.0,
+    0.0
+   ],
+   "yaw": -343.0,
+   "scale": 1.05,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_10",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -710.0,
+    -4450.0,
+    0.0
+   ],
+   "yaw": -307.0,
+   "scale": 1.02,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_11",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    560.0,
+    -3380.0,
+    0.0
+   ],
+   "yaw": -241.0,
+   "scale": 1.1,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_12",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    370.0,
+    -1800.0,
+    0.0
+   ],
+   "yaw": -4.0,
+   "scale": 0.89,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_13",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    4280.0,
+    -1810.0,
+    0.0
+   ],
+   "yaw": -217.0,
+   "scale": 0.92,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_14",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    3680.0,
+    -2830.0,
+    0.0
+   ],
+   "yaw": -332.0,
+   "scale": 1.02,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_15",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -1990.0,
+    -4120.0,
+    0.0
+   ],
+   "yaw": -268.0,
+   "scale": 0.98,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_16",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    4640.0,
+    -3270.0,
+    0.0
+   ],
+   "yaw": -348.0,
+   "scale": 1.04,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_17",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    2990.0,
+    -3890.0,
+    0.0
+   ],
+   "yaw": -258.0,
+   "scale": 1.06,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_18",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    5190.0,
+    -400.0,
+    0.0
+   ],
+   "yaw": -287.0,
+   "scale": 1.19,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_19",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    1550.0,
+    -3320.0,
+    0.0
+   ],
+   "yaw": -300.0,
+   "scale": 0.9,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_20",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    2420.0,
+    -2060.0,
+    0.0
+   ],
+   "yaw": -334.0,
+   "scale": 1.24,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_21",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -3900.0,
+    -1840.0,
+    0.0
+   ],
+   "yaw": -192.0,
+   "scale": 0.88,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_22",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -4450.0,
+    -1470.0,
+    0.0
+   ],
+   "yaw": -253.0,
+   "scale": 1.01,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_23",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    -740.0,
+    -2050.0,
+    0.0
+   ],
+   "yaw": -326.0,
+   "scale": 1.17,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_24",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    3680.0,
+    -4320.0,
+    0.0
+   ],
+   "yaw": -89.0,
+   "scale": 1.07,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_25",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    2180.0,
+    -1900.0,
+    0.0
+   ],
+   "yaw": -198.0,
+   "scale": 1.05,
+   "collision": "simple"
+  },
+  {
+   "name": "Plant_Pine_26",
+   "mesh": "SM_Plant_Pine",
+   "category": "Plant",
+   "location": [
+    1160.0,
+    -3770.0,
+    0.0
+   ],
+   "yaw": -100.0,
+   "scale": 1.01,
+   "collision": "simple"
+  },
+  {
+   "name": "Neighbour1_House_Walls",
+   "mesh": "SM_House_Walls",
+   "category": "Neighbour",
+   "location": [
+    -1700.0,
+    -100.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour1_House_EntryStucco",
+   "mesh": "SM_House_EntryStucco",
+   "category": "Neighbour",
+   "location": [
+    -1700.0,
+    -100.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour1_House_Roof",
+   "mesh": "SM_House_Roof",
+   "category": "Neighbour",
+   "location": [
+    -1700.0,
+    -100.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour1_House_Details",
+   "mesh": "SM_House_Details",
+   "category": "Neighbour",
+   "location": [
+    -1700.0,
+    -100.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour1_House_Lights",
+   "mesh": "SM_House_Lights",
+   "category": "Neighbour",
+   "location": [
+    -1700.0,
+    -100.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour1_House_Slab",
+   "mesh": "SM_House_Slab",
+   "category": "Neighbour",
+   "location": [
+    -1700.0,
+    -100.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour2_House_Walls",
+   "mesh": "SM_House_Walls",
+   "category": "Neighbour",
+   "location": [
+    1750.0,
+    -50.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour2_House_EntryStucco",
+   "mesh": "SM_House_EntryStucco",
+   "category": "Neighbour",
+   "location": [
+    1750.0,
+    -50.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour2_House_Roof",
+   "mesh": "SM_House_Roof",
+   "category": "Neighbour",
+   "location": [
+    1750.0,
+    -50.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour2_House_Details",
+   "mesh": "SM_House_Details",
+   "category": "Neighbour",
+   "location": [
+    1750.0,
+    -50.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour2_House_Lights",
+   "mesh": "SM_House_Lights",
+   "category": "Neighbour",
+   "location": [
+    1750.0,
+    -50.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "Neighbour2_House_Slab",
+   "mesh": "SM_House_Slab",
+   "category": "Neighbour",
+   "location": [
+    1750.0,
+    -50.0,
+    0.0
+   ],
+   "yaw": -0.0,
+   "scale": 1.0,
+   "collision": "complex"
+  },
+  {
+   "name": "PlayerStart",
+   "category": "Spawn",
+   "location": [
+    930.0,
+    1150.0,
+    100.0
+   ],
+   "yaw": -90.0
+  }
+ ]
+}

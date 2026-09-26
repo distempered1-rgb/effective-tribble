@@ -220,3 +220,4 @@ __marimo__/
 # Generated landscapes (examples/sample_output is kept as a reference)
 /output/
 *.obj
+*.blend1

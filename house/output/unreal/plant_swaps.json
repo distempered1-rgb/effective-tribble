@@ -1,0 +1,11 @@
+{
+  "_help": "Put an Unreal asset path next to a plant to use it instead (Content Browser > right-click mesh > Copy Reference). Leave empty to keep the placeholder. Then re-run import_house.py.",
+  "by_type": {
+    "SM_Plant_CrapeMyrtle": "",
+    "SM_Plant_Azalea": "",
+    "SM_Plant_UrnFlowers": "",
+    "SM_Plant_LiveOak": "",
+    "SM_Plant_Pine": ""
+  },
+  "by_object": {}
+}

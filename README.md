@@ -1,4 +1,8 @@
-# effective-tribble — picture → Unreal Engine landscape
+# effective-tribble
+
+**House model:** see [`house/`](house/README.md) for the Blender model of the house and front yard, which exports to a walkable Unreal scene with swappable plants.
+
+## Picture → Unreal Engine landscape
 
 Turn a picture into a 3D landscape you can import into **Unreal Engine 5**, with
 all the plants placed as **swappable Foliage Types** so you can change the trees,

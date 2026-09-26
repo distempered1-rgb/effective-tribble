@@ -76,16 +76,29 @@ blender -b -P house/build_house.py -- --no-render   # skip the preview renders (
    that walks), then **File → New Level → Basic** (sky, sun and fog are
    included). Delete the level's default floor plane.
 2. **Edit → Plugins**, enable **Python Editor Script Plugin**, and restart.
-3. Copy the whole `house/output/unreal` folder somewhere on your PC.
-4. **Tools → Execute Python Script…** and pick `import_house.py` from that
-   folder.
-   - The script imports the meshes into `Content/MyHouse/Meshes`.
-   - It places everything in the Outliner under **MyHouse/House**, **Yard**,
-     **Plants**, **Neighbour**.
-   - The house and yard get per-polygon collision, so you can walk up to the
-     walls and onto the porch.
-   - It adds a **Player Start** on the driveway.
-5. Press **Play**. Walk around with WASD and the mouse.
+3. Open **Window → Output Log**. In the command box at the bottom, click
+   **Cmd** and switch it to **Python**. Paste this line and press **Enter**:
+
+   ```python
+   import urllib.request as r; exec(r.urlopen("https://raw.githubusercontent.com/distempered1-rgb/effective-tribble/refs/heads/claude/3d-landscape-unreal-engine-yw7zzp/house/unreal/import_house.py").read().decode())
+   ```
+
+   You don't need to download or unzip anything. The script:
+   - pulls the model straight from GitHub into `<YourProject>/Saved/MyHouse`;
+   - imports it into `Content/MyHouse/Meshes`;
+   - places everything in the Outliner under **MyHouse/House**, **Yard**,
+     **Plants** and **Neighbour**;
+   - gives the house per-polygon collision so you can walk up to the walls
+     and onto the porch;
+   - adds a **Player Start** on the driveway.
+
+   Progress and any errors appear in the Output Log as lines starting with
+   `[MyHouse]`.
+4. Press **Play**. Walk around with WASD and the mouse.
+
+*Offline alternative:* download the repo, then use **Tools → Execute Python
+Script…** on `house/output/unreal/import_house.py`. It uses the files next to
+it instead of downloading.
 
 *No-script alternative:* **File → Import Into Level →
 `MyHouse_Full.fbx`** brings in the whole scene as separate actors. You may
@@ -111,8 +124,10 @@ yourself.
   }
   ```
 
-  Then run `import_house.py` again. It removes what it placed last time and
-  rebuilds it with your plants in the same spots.
+  The swaps file is at `<YourProject>/Saved/MyHouse/plant_swaps.json`. After
+  editing it, paste the same line again. It removes what it placed last time
+  and rebuilds everything with your plants in the same spots. It never
+  overwrites your swaps file.
 - **Add or move plants:** just drag the actors around, or duplicate with
   Alt-drag. Foliage mode (Shift+3) works too for painting ground cover.
 

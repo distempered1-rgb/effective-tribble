@@ -68,6 +68,15 @@ def download(url, path):
         f.write(resp.read())
 
 
+def remote_size(url):
+    req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "UnrealEditor-MyHouse"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return int(resp.headers.get("Content-Length", -1))
+    except Exception:
+        return -1
+
+
 def fetch_from_github():
     saved = unreal.Paths.convert_relative_path_to_full(unreal.Paths.project_saved_dir())
     base = os.path.join(saved, "MyHouse")
@@ -89,8 +98,11 @@ def fetch_from_github():
         for name in names:
             task.enter_progress_frame(1, "Downloading " + name)
             path = os.path.join(base, "meshes", name + ".fbx")
-            if FORCE_DOWNLOAD or not os.path.exists(path):
-                download(REPO_RAW + "meshes/" + name + ".fbx", path)
+            url = REPO_RAW + "meshes/" + name + ".fbx"
+            # Re-download when the model on GitHub has been updated.
+            if (FORCE_DOWNLOAD or not os.path.exists(path)
+                    or remote_size(url) not in (-1, os.path.getsize(path))):
+                download(url, path)
     log("download complete (%d meshes)" % len(names))
     return base
 
